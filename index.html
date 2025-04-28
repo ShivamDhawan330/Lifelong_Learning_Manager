@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lifelong Learning Manager 🧠</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-light d-flex flex-column align-items-center justify-content-center min-vh-100">
+
+    <!-- Header -->
+    <div class="container d-flex justify-content-between align-items-center p-3 bg-white shadow-sm fixed-top">
+        <h1 class="text-primary text-center">Personalize LLM 🧠</h1>
+    </div>
+
+
+    <!-- Main Options -->
+    <div class="card mt-5 p-4 text-center shadow" style="max-width: 500px; margin-top: 80px;">
+        <h2 class="mb-3">✨ !! Welcome !! ✨</h2>
+        <a href="{{ url_for('signup') }}" class="btn btn-primary w-100 mb-3">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-primary">Login</a>
+
+    </div>
+
+     <!-- Flash Messages -->
+     {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+         <div class="container mt-3">
+             {% for category, message in messages %}
+                 <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                     {{ message }}
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </div>
+             {% endfor %}
+         </div>
+     {% endif %}
+     {% endwith %}
+
+
+    <script>
+
+
+        function showPasswordPopup(username) {
+            let password = prompt("Enter your password for account:");
+            if (password) {
+                verifyPassword(username, password);
+            }
+        }
+        function verifyPassword(username, password) {
+            fetch("/verify-password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Login successful!");
+                    window.location.href = "/dashboard";
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+        // Auto-hide flash messages after 30 seconds (30000 milliseconds)
+        setTimeout(function() {
+            let flashMessages = document.getElementById("flash-messages");
+            if (flashMessages) {
+                flashMessages.style.transition = "opacity 1s";  // Smooth fade-out effect
+                flashMessages.style.opacity = "0";
+                setTimeout(() => flashMessages.remove(), 1000);  // Remove after fade-out
+            }
+        }, 30000);
+    </script>
+
+
+
+    <script>
+        function showForm(formId) {
+            document.getElementById("signup-form").classList.add("d-none");
+            document.getElementById("login-form").classList.add("d-none");
+            document.getElementById(formId).classList.remove("d-none");
+        }
+    </script>
+
+</body>
+</html>
