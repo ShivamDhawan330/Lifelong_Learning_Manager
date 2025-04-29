@@ -267,6 +267,8 @@ def ai_agent_summary(utid):
             df = df.sort_values(by="seq_number").reset_index(drop=True)
             if df["status"].all():
                 db.session.query(ustatus).filter_by(utid=utid).update({"status": "Completed"})
+                total_score = df["score"].sum()
+                db.session.query(ustatus).filter_by(utid=utid).update({"result": int(total_score)})
                 db.session.commit()
                 return render_template("ai_output.html", message="🎉 All topics covered ✅")
 
