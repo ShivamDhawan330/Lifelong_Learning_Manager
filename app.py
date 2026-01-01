@@ -291,7 +291,7 @@ def ai_agent_summary(utid):
 
 
         llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-lite",
+        model="gemini-2.5-flash-lite",
         temperature=0)
 
 
@@ -405,7 +405,7 @@ def explain_more(utid, seq_number):
     )
 
     llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash-lite",
+    model="gemini-2.5-flash-lite",
     temperature=0)
     
     explain_chain = LLMChain(llm=llm, prompt=explain_prompt)
@@ -420,4 +420,5 @@ def explain_more(utid, seq_number):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)),debug=True)
+
 
