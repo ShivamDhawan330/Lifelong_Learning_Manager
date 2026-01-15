@@ -108,7 +108,7 @@ Login/Signup → Dashboard →
     
     └── Existing Schedules
             └── Continue Topics
-            
+
 
 At each topic:
 
@@ -118,6 +118,11 @@ OK → Quiz (optional) → Next Topic
 
 Not OK → Get deeper explanation → Then Quiz
 ```
+
+
+USER FLOW DIAGRAM:
+
+<img width="576" height="381" alt="LLM_User_Flow_Diag" src="https://github.com/user-attachments/assets/3e300238-74d4-4a21-af69-9002dfdae9cb" />
 
 
 
